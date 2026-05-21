@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from yara_gen.adapters.jsonl import JSONLAdapter
-from yara_gen.models.text import DatasetType
+from yaramint.adapters.jsonl import JSONLAdapter
+from yaramint.models.text import DatasetType
 
 
 class TestJSONLAdapter:

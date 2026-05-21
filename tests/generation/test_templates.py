@@ -1,8 +1,8 @@
 import pytest
 from jinja2 import Environment
 
-from yara_gen.generation.templates import YARA_TEMPLATE
-from yara_gen.models.text import GeneratedRule, RuleString
+from yaramint.generation.templates import YARA_TEMPLATE
+from yaramint.models.text import GeneratedRule, RuleString
 
 
 class TestYaraTemplate:

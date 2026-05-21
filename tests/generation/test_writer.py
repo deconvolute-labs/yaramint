@@ -1,7 +1,7 @@
 import pytest
 
-from yara_gen.generation.writer import YaraWriter
-from yara_gen.models.text import GeneratedRule, RuleString
+from yaramint.generation.writer import YaraWriter
+from yaramint.models.text import GeneratedRule, RuleString
 
 
 class TestYaraWriter:

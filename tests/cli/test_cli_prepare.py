@@ -5,9 +5,9 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from yara_gen.cli.commands.prepare import run
-from yara_gen.constants import AdapterType
-from yara_gen.models.text import DatasetType
+from yaramint.cli.commands.prepare import run
+from yaramint.constants import AdapterType
+from yaramint.models.text import DatasetType
 
 
 @pytest.fixture
@@ -33,11 +33,11 @@ def test_prepare_command_basic(
     mock_adapter = MagicMock()
     mock_adapter.load.return_value = []
     mock_get_adapter = mocker.patch(
-        "yara_gen.cli.commands.prepare.get_adapter", return_value=mock_adapter
+        "yaramint.cli.commands.prepare.get_adapter", return_value=mock_adapter
     )
 
     # Mock logger to verify output
-    mock_logger = mocker.patch("yara_gen.cli.commands.prepare.logger")
+    mock_logger = mocker.patch("yaramint.cli.commands.prepare.logger")
 
     run(run_args)
 
@@ -66,7 +66,7 @@ def test_prepare_command_limit(
     mock_item.to_dict.return_value = {"text": "foo"}
     mock_adapter.load.return_value = [mock_item] * 10
 
-    mocker.patch("yara_gen.cli.commands.prepare.get_adapter", return_value=mock_adapter)
+    mocker.patch("yaramint.cli.commands.prepare.get_adapter", return_value=mock_adapter)
 
     run(run_args)
 
@@ -85,7 +85,7 @@ def test_prepare_command_adapter_config_override(
 
     mock_adapter = MagicMock()
     mock_adapter.load.return_value = []
-    mocker.patch("yara_gen.cli.commands.prepare.get_adapter", return_value=mock_adapter)
+    mocker.patch("yaramint.cli.commands.prepare.get_adapter", return_value=mock_adapter)
 
     run(run_args)
 

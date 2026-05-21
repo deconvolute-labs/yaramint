@@ -3,8 +3,8 @@ import json
 import pytest
 import yara
 
-from yara_gen.models.text import GeneratedRule, RuleString
-from yara_gen.optimization.evaluator import Evaluator
+from yaramint.models.text import GeneratedRule, RuleString
+from yaramint.optimization.evaluator import Evaluator
 
 
 @pytest.fixture
@@ -80,7 +80,7 @@ def test_evaluate_compilation_error(evaluator, mock_dev_file, dummy_rules, mocke
     mocker.patch("yara.compile", side_effect=yara.SyntaxError("Mock Error"))
 
     # We also mock logger to ensure the error is logged (optional but good practice)
-    mock_logger = mocker.patch("yara_gen.optimization.evaluator.logger")
+    mock_logger = mocker.patch("yaramint.optimization.evaluator.logger")
 
     metrics = evaluator.evaluate(dummy_rules, mock_dev_file)
 

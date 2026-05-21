@@ -1,9 +1,9 @@
 import pytest
 
-from yara_gen.adapters.factory import ADAPTER_MAP, get_adapter
-from yara_gen.adapters.huggingface import HuggingFaceAdapter
-from yara_gen.adapters.jsonl import JSONLAdapter
-from yara_gen.models.text import DatasetType
+from yaramint.adapters.factory import ADAPTER_MAP, get_adapter
+from yaramint.adapters.huggingface import HuggingFaceAdapter
+from yaramint.adapters.jsonl import JSONLAdapter
+from yaramint.models.text import DatasetType
 
 
 class TestAdapterFactory:

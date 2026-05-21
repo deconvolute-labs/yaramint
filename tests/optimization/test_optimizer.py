@@ -1,9 +1,9 @@
 import pytest
 
-from yara_gen.models.evaluator import EvaluationMetrics
-from yara_gen.models.optimization_config import NgramSearchSpace, OptimizationConfig
-from yara_gen.models.text import GeneratedRule
-from yara_gen.optimization.optimizer import Optimizer
+from yaramint.models.evaluator import EvaluationMetrics
+from yaramint.models.optimization_config import NgramSearchSpace, OptimizationConfig
+from yaramint.models.text import GeneratedRule
+from yaramint.optimization.optimizer import Optimizer
 
 
 @pytest.fixture
@@ -51,7 +51,7 @@ def test_generate_parameter_combinations(optimizer):
 def test_atomic_save_behavior(optimizer, tmp_path, mocker):
     """Verify os.replace is called to ensure data safety."""
     # Create a dummy report object
-    from yara_gen.models.optimizer import OptimizationReport
+    from yaramint.models.optimizer import OptimizationReport
 
     report = OptimizationReport(meta={"test": True}, runs=[])
 
@@ -79,12 +79,12 @@ def test_optimizer_run_loop(optimizer, mocker):
     mock_engine.extract.return_value = [
         GeneratedRule(name="test", score=1.0, strings=[], condition="")
     ]
-    mocker.patch("yara_gen.optimization.optimizer.get_engine", return_value=mock_engine)
+    mocker.patch("yaramint.optimization.optimizer.get_engine", return_value=mock_engine)
 
     # Mock the Adapter (file loading)
     mock_adapter = mocker.Mock()
     mocker.patch(
-        "yara_gen.optimization.optimizer.get_adapter", return_value=mock_adapter
+        "yaramint.optimization.optimizer.get_adapter", return_value=mock_adapter
     )
 
     # Mock the Evaluator inside the optimizer instance

@@ -65,7 +65,7 @@ jobs:
         run: uv run mypy .
 
       - name: Run Tests
-        run: uv run pytest --cov=yara_gen --cov-report=xml
+        run: uv run pytest --cov=yaramint --cov-report=xml
 
   summary:
     name: CI Summary

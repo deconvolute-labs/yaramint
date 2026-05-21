@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from yara_gen.models.text import DatasetType, TextSample
-from yara_gen.optimization.splitter import DataSplitter
+from yaramint.models.text import DatasetType, TextSample
+from yaramint.optimization.splitter import DataSplitter
 
 
 @pytest.fixture

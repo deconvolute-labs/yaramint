@@ -1,8 +1,8 @@
 import re
 from datetime import date
 
-from yara_gen.constants import META_AUTHOR
-from yara_gen.generation.builder import RuleBuilder
+from yaramint.constants import META_AUTHOR
+from yaramint.generation.builder import RuleBuilder
 
 
 class TestRuleBuilder:

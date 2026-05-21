@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "yara-gen"
+name = "yaramint"
 dynamic = ["version"]
-description = "Automated YARA rule generator for AI Security and Indirect Prompt Injection detection."
+description = "Generate YARA rules automatically from positive and negative examples. For PII detection, secret scanning, prompt injection, and any pattern-based detection use case."
 readme = "README.md"
 requires-python = ">=3.13"
 license = "Apache-2.0"
@@ -35,12 +35,11 @@ dependencies = [
 ]
 [project.urls]
 Homepage = "https://deconvoluteai.com"
-Repository = "https://github.com/deconvolute-labs/yara-gen"
-Issues = "https://github.com/deconvolute-labs/yara-gen/issues"
+Repository = "https://github.com/deconvolute-labs/yaramint"
+Issues = "https://github.com/deconvolute-labs/yaramint/issues"
 
 [project.scripts]
-yara-gen = "yara_gen.main:main"
-ygen = "yara_gen.main:main"
+ymint = "yaramint.main:main"
 
 [dependency-groups]
 dev = [
@@ -58,10 +57,10 @@ plots = [
 ]
 
 [tool.hatch.version]
-path = "src/yara_gen/__init__.py"
+path = "src/yaramint/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/yara_gen"]
+packages = ["src/yaramint"]
 
 [tool.ruff]
 line-length = 88
@@ -95,4 +94,4 @@ disallow_untyped_defs = false
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-addopts = "-ra -q --cov=yara_gen --cov-report=xml"
+addopts = "-ra -q --cov=yaramint --cov-report=xml"

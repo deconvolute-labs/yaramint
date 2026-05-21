@@ -18,7 +18,7 @@ jobs:
     if: github.ref == 'refs/heads/main'  # Only runs on main branch
     environment:
       name: pypi
-      url: https://pypi.org/p/yara-gen
+      url: https://pypi.org/p/yaramint
     
     steps:
       - uses: actions/checkout@v6
@@ -69,16 +69,16 @@ jobs:
             import sys
             
             target = '${{ inputs.version }}'
-            content = Path('src/yara_gen/__init__.py').read_text()
+            content = Path('src/yaramint/__init__.py').read_text()
             match = re.search(r'__version__\s*=\s*[\"\']([^\"\']+)[\"\']', content)
             
             if not match:
-                print('ERROR: Could not find __version__ in src/yara_gen/__init__.py')
+                print('ERROR: Could not find __version__ in src/yaramint/__init__.py')
                 sys.exit(1)
                 
             found = match.group(1)
             if found != target:
-                print(f'ERROR: src/yara_gen/__init__.py version ({found}) does not match input ({target})')
+                print(f'ERROR: src/yaramint/__init__.py version ({found}) does not match input ({target})')
                 sys.exit(1)
             "
   

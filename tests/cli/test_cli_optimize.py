@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from yara_gen.cli.commands import optimize
+from yaramint.cli.commands import optimize
 
 
 @pytest.fixture
@@ -35,17 +35,17 @@ def test_optimize_cli_end_to_end(input_files, tmp_path, mocker):
     # This prevents the test from hanging on actual processing
     mock_engine = mocker.Mock()
     mock_engine.extract.return_value = []
-    mocker.patch("yara_gen.optimization.optimizer.get_engine", return_value=mock_engine)
+    mocker.patch("yaramint.optimization.optimizer.get_engine", return_value=mock_engine)
 
     # Mock the Evaluator to return zeros
     mock_evaluator = mocker.Mock()
-    from yara_gen.models.evaluator import EvaluationMetrics
+    from yaramint.models.evaluator import EvaluationMetrics
 
     mock_evaluator.evaluate.return_value = EvaluationMetrics()
     # We need to patch the Evaluator class so that when Optimizer() instantiates it,
     # it gets our mock
     mocker.patch(
-        "yara_gen.optimization.optimizer.Evaluator", return_value=mock_evaluator
+        "yaramint.optimization.optimizer.Evaluator", return_value=mock_evaluator
     )
 
     # Mock the DataSplitter class to return paths in our tmp_path
@@ -59,7 +59,7 @@ def test_optimize_cli_end_to_end(input_files, tmp_path, mocker):
     mock_splitter_instance.dev_path.touch()
 
     mocker.patch(
-        "yara_gen.cli.commands.optimize.DataSplitter",
+        "yaramint.cli.commands.optimize.DataSplitter",
         return_value=mock_splitter_instance,
     )
 
@@ -69,13 +69,13 @@ def test_optimize_cli_end_to_end(input_files, tmp_path, mocker):
     mock_config.dev_split_ratio = 0.2
     mock_config.model_dump.return_value = {"mock": "config"}
     # Create a minimal valid search space
-    from yara_gen.models.optimization_config import NgramSearchSpace, SelectionConfig
+    from yaramint.models.optimization_config import NgramSearchSpace, SelectionConfig
 
     mock_config.search_space = NgramSearchSpace(min_ngram=[3])
     mock_config.selection = SelectionConfig()
 
     mocker.patch(
-        "yara_gen.cli.commands.optimize._load_optimization_config",
+        "yaramint.cli.commands.optimize._load_optimization_config",
         return_value=mock_config,
     )
 

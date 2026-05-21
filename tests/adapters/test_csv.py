@@ -2,8 +2,8 @@ import csv
 
 import pytest
 
-from yara_gen.adapters.csv import GenericCSVAdapter
-from yara_gen.models.text import DatasetType
+from yaramint.adapters.csv import GenericCSVAdapter
+from yaramint.models.text import DatasetType
 
 
 class TestGenericCSVAdapter:

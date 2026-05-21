@@ -1,0 +1,41 @@
+from collections.abc import Iterable
+
+from yaramint.engine.base import BaseEngine
+from yaramint.models.engine_config import BaseEngineConfig
+from yaramint.models.text import GeneratedRule, RuleString, TextSample
+from yaramint.utils.logger import get_logger
+
+logger = get_logger()
+
+
+class StubEngine(BaseEngine[BaseEngineConfig]):
+    """
+    A dummy engine for testing the pipeline wiring without running real math.
+    """
+
+    def extract(
+        self, adversarial: Iterable[TextSample], benign: Iterable[TextSample]
+    ) -> list[GeneratedRule]:
+        logger.info("StubEngine: Started extraction (STUB MODE).")
+
+        # Consume inputs to prove we can read them
+        count = sum(1 for _ in adversarial)
+        logger.info(f"StubEngine: Consumed {count} adversarial samples.")
+
+        return [
+            GeneratedRule(
+                name="stub_rule_001",
+                tags=["stub", "test"],
+                score=1.0,
+                condition="any of them",
+                strings=[
+                    RuleString(
+                        value="test_string_stub",
+                        score=1.0,
+                        modifiers=["nocase"],
+                        identifier="$s1",
+                    )
+                ],
+                metadata={"type": "stub"},
+            )
+        ]

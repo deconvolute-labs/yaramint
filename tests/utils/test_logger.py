@@ -2,7 +2,7 @@ import logging
 
 import pytest
 
-from yara_gen.utils.logger import get_logger, setup_logger
+from yaramint.utils.logger import get_logger, setup_logger
 
 
 class TestLogger:

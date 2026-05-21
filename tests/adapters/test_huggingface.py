@@ -1,8 +1,8 @@
 import pytest
 
-from yara_gen.adapters.huggingface import HuggingFaceAdapter
-from yara_gen.errors import DataError
-from yara_gen.models.text import DatasetType
+from yaramint.adapters.huggingface import HuggingFaceAdapter
+from yaramint.errors import DataError
+from yaramint.models.text import DatasetType
 
 
 class TestHuggingFaceAdapter:
@@ -19,7 +19,7 @@ class TestHuggingFaceAdapter:
         ]
 
         # We patch the function where it is imported/used
-        mock_load_dataset = mocker.patch("yara_gen.adapters.huggingface.load_dataset")
+        mock_load_dataset = mocker.patch("yaramint.adapters.huggingface.load_dataset")
         mock_load_dataset.return_value = mock_data
 
         # We pass a string ID
@@ -39,7 +39,7 @@ class TestHuggingFaceAdapter:
     def test_load_with_custom_column_and_split(self, adapter, mocker):
         """Test specifying a custom column and split."""
         mock_data = [{"content": "malicious payload", "id": 1}]
-        mock_load_dataset = mocker.patch("yara_gen.adapters.huggingface.load_dataset")
+        mock_load_dataset = mocker.patch("yaramint.adapters.huggingface.load_dataset")
         mock_load_dataset.return_value = mock_data
 
         samples = list(adapter.load("user/repo", column="content", split="validation"))
@@ -57,7 +57,7 @@ class TestHuggingFaceAdapter:
     def test_fallback_to_prompt_column(self, adapter, mocker):
         """Test heuristic fallback: if 'text' is missing, try 'prompt'."""
         mock_data = [{"prompt": "ignore instructions", "category": "jailbreak"}]
-        mock_load_dataset = mocker.patch("yara_gen.adapters.huggingface.load_dataset")
+        mock_load_dataset = mocker.patch("yaramint.adapters.huggingface.load_dataset")
         mock_load_dataset.return_value = mock_data
 
         samples = list(adapter.load("rubend18/test"))
@@ -72,7 +72,7 @@ class TestHuggingFaceAdapter:
     def test_fallback_to_capitalized_prompt_column(self, adapter, mocker):
         """Test heuristic fallback to 'Prompt' (capitalized) and metadata exclusion."""
         mock_data = [{"Prompt": "Do anything now", "other_field": "123"}]
-        mock_load_dataset = mocker.patch("yara_gen.adapters.huggingface.load_dataset")
+        mock_load_dataset = mocker.patch("yaramint.adapters.huggingface.load_dataset")
         mock_load_dataset.return_value = mock_data
 
         samples = list(adapter.load("user/repo"))
@@ -86,7 +86,7 @@ class TestHuggingFaceAdapter:
 
     def test_hf_load_failure(self, adapter, mocker):
         """Test that connection errors raise a ValueError."""
-        mock_load_dataset = mocker.patch("yara_gen.adapters.huggingface.load_dataset")
+        mock_load_dataset = mocker.patch("yaramint.adapters.huggingface.load_dataset")
         mock_load_dataset.side_effect = Exception("Connection refused")
 
         with pytest.raises(DataError, match="Could not load Hugging Face dataset"):
@@ -95,7 +95,7 @@ class TestHuggingFaceAdapter:
     def test_load_with_config_name(self, adapter, mocker):
         """Test loading with a specific config name."""
         mock_data = [{"text": "config sample"}]
-        mock_load_dataset = mocker.patch("yara_gen.adapters.huggingface.load_dataset")
+        mock_load_dataset = mocker.patch("yaramint.adapters.huggingface.load_dataset")
         mock_load_dataset.return_value = mock_data
 
         samples = list(adapter.load("user/multi-config-repo", config_name="subset_v2"))

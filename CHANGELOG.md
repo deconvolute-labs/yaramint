@@ -3,6 +3,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Fix tags and metadata handling in rules (#12)
+
 ## [0.1.4] - 2026-01-28
 
 ### 🚀 Features
@@ -14,6 +15,7 @@
 
 - Fix data deduplication in huggingface adapter (#10)
 - Prepare v0.1.4
+
 ## [0.1.3] - 2026-01-28
 
 ### 🚀 Features
@@ -32,6 +34,7 @@
 - Prepare v0.1.2
 - Refactor file structure, constants, and streaming logic (#7)
 - Prepare v0.1.3
+
 ## [0.1.1] - 2026-01-26
 
 ### 📚 Documentation
@@ -41,6 +44,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Prepare v0.1.1
+
 ## [0.1.0] - 2026-01-25
 
 ### 🚀 Features

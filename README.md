@@ -1,29 +1,29 @@
-# Yara-Gen
+# Yaramint
 
-[![CI](https://github.com/deconvolute-labs/yara-gen/actions/workflows/ci.yml/badge.svg)](https://github.com/deconvolute-labs/yara-gen/actions/workflows/ci.yml)
-[![License](https://img.shields.io/pypi/l/yara-gen.svg)](https://pypi.org/project/yara-gen/)
-[![PyPI version](https://img.shields.io/pypi/v/yara-gen.svg?color=green)](https://pypi.org/project/yara-gen/)
-[![Supported Python version](https://img.shields.io/badge/python-3.13-blue.svg?)](https://pypi.org/project/yara-gen/)
+[![CI](https://github.com/deconvolute-labs/yaramint/actions/workflows/ci.yml/badge.svg)](https://github.com/deconvolute-labs/yaramint/actions/workflows/ci.yml)
+[![License](https://img.shields.io/pypi/l/yaramint.svg)](https://pypi.org/project/yaramint/)
+[![PyPI version](https://img.shields.io/pypi/v/yaramint.svg?color=green)](https://pypi.org/project/yaramint/)
+[![Supported Python version](https://img.shields.io/badge/python-3.13-blue.svg?)](https://pypi.org/project/yaramint/)
 
 
 ## Data-Driven YARA Rules from Adversarial and Benign Samples
 
-Yara-Gen automatically generates YARA rules from adversarial and benign text datasets. It produces compact, high-precision rules that integrate with the [Deconvolute SDK](https://github.com/deconvolute-labs/deconvolute) for prompt injection and AI system security.
+Yaramint automatically generates YARA rules from adversarial and benign text datasets. It produces compact, high-precision rules that integrate with the [Deconvolute SDK](https://github.com/deconvolute-labs/deconvolute) for prompt injection and AI system security.
 
-For a detailed explanation of the algorithm and design choices, see the [blog post](https://deconvoluteai.com/blog/yara-rules-llm-prompt-security?utm_source=github&utm_campaign=yara-gen&utm_medium=readme-top).
+For a detailed explanation of the algorithm and design choices, see the [blog post](https://deconvoluteai.com/blog/yara-rules-llm-prompt-security?utm_source=github&utm_campaign=yaramint&utm_medium=readme-top).
 
 ## Installation
 
 Prerequisites: Python 3.13 or higher. Install via pip
 
 ```bash
-pip install yara-gen
+pip install yaramint
 ```
 
 Or using uv (recommended)
 
 ```bash
-uv pip install yara-gen
+uv pip install yaramint
 ```
 
 ## Quick Start
@@ -31,7 +31,7 @@ uv pip install yara-gen
 Generate YARA rules from a public jailbreak dataset, filtered against a prepared benign control set:
 
 ```bash
-ygen generate rubend18/ChatGPT-Jailbreak-Prompts \
+ymint generate rubend18/ChatGPT-Jailbreak-Prompts \
   --adapter huggingface \
   --benign ./data/control.jsonl \
   --output ./data/jailbreak_signatures.yar
@@ -44,21 +44,21 @@ The output `.yar` file is ready to load into any YARA engine or the [Deconvolute
 
 Here are some basic commands. For a complete guide on configuration, dot-notation overrides, and adapter settings, see the [User Guide](docs/User_Guide.md).
 
-### ygen prepare
+### ymint prepare
 
 Prepares large benign datasets for efficient rule generation. Use this when your control set is large or expensive to parse repeatedly. You can for example stream from Huggingface datasets like this:
 
 ```bash
-ygen prepare deepset/prompt-injections  \
+ymint prepare deepset/prompt-injections  \
 --output ./data/deepset.jsonl
 ```
 
-### ygen generate
+### ymint generate
 
 Generates YARA rules from adversarial inputs and validates against a benign control set. This is the main command you will use.
 
 ```bash
-ygen generate ./data/jailbreaks.jsonl \
+ymint generate ./data/jailbreaks.jsonl \
   --adversarial-adapter jsonl \
   --benign-dataset ./data/benign_emails.jsonl \
   --benign-adaper jsonl \
@@ -66,14 +66,14 @@ ygen generate ./data/jailbreaks.jsonl \
   --engine ngram
 ```
 
-### ygen optimize
+### ymint optimize
 
 Automates the search for optimal hyperparameters by running a grid search against your datasets. It evaluates performance using a held-out development set and outputs a report containing the best configuration.
 
-The command prints a ready-to-use `ygen generate` command with the optimal flags applied, which can be directly copied to generate your rules.
+The command prints a ready-to-use `ymint generate` command with the optimal flags applied, which can be directly copied to generate your rules.
 
 ```bash
-ygen optimize ./data/jailbreaks.jsonl \
+ymint optimize ./data/jailbreaks.jsonl \
   --benign-dataset ./data/benign_emails.jsonl \
   --config optimization_config.yaml
 ```
@@ -84,7 +84,7 @@ ygen optimize ./data/jailbreaks.jsonl \
 
 
 ```bash
-ygen prepare wiki_dump.csv \
+ymint prepare wiki_dump.csv \
   --adapter wikipedia.csv \
   --output benign_wikipedia.jsonl
 ```
@@ -92,7 +92,7 @@ ygen prepare wiki_dump.csv \
 **Iterating on existing rules:** Avoid regenerating already-covered signatures.
 
 ```bash
-ygen generate attacks.csv \
+ymint generate attacks.csv \
   --benign-dataset control.jsonl \
   --existing-rules baseline.yar \
   --output updated_rules.yar
@@ -103,7 +103,7 @@ ygen generate attacks.csv \
 Control how aggressive the rule generation should be. The `--set` flag allows us to pass args using a dot-notation:
 
 ```bash
-ygen generate attacks.csv \
+ymint generate attacks.csv \
   --benign-dataset control.jsonl \
   --set engine.score_threshold=0.9 \
   --output rules.yar
@@ -112,7 +112,7 @@ ygen generate attacks.csv \
 
 ## Output and Compatibility
 
-Yara-Gen produces standard `.yar` files that:
+Yaramint produces standard `.yar` files that:
 - Works with any YARA-compatible engine
 - Can be versioned, audited, and reviewed like hand-written rules
 - Are optimized for automated scanning pipelines
@@ -122,7 +122,7 @@ No proprietary runtime is required.
 
 ## Integration with Deconvolute SDK
 
-Rules generated by Yara-Gen can be deployed directly into Deconvolute detectors which can then be used like this for example:
+Rules generated by Yaramint can be deployed directly into Deconvolute detectors which can then be used like this for example:
 
 ```python
 from deconvolute import scan
@@ -137,5 +137,5 @@ This allows blocking or flagging adversarial inputs before they reach sensitive 
 
 ## Further Reading
 - Detailed [User Guide](docs/User_Guide.md)
-- Algorithm and engine design [blog post](https://deconvoluteai.com/blog/yara-rules-llm-prompt-security?utm_source=github&utm_campaign=yara-gen&utm_medium=readme-further-reading)
+- Algorithm and engine design [blog post](https://deconvoluteai.com/blog/yara-rules-llm-prompt-security?utm_source=github&utm_campaign=yaramint&utm_medium=readme-further-reading)
 - Deconvolute SDK [source code](https://github.com/deconvolute-labs/deconvolute)

@@ -1,4 +1,4 @@
-from yara_gen.models.text import DatasetType, GeneratedRule, RuleString, TextSample
+from yaramint.models.text import DatasetType, GeneratedRule, RuleString, TextSample
 
 
 class TestTextSample:

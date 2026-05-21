@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import yaml
 
-from yara_gen.main import main
+from yaramint.main import main
 
 
 def test_generate_dot_notation_overrides(tmp_path: Path, mocker: MagicMock) -> None:
@@ -37,18 +37,18 @@ def test_generate_dot_notation_overrides(tmp_path: Path, mocker: MagicMock) -> N
     benign_file.write_text('{"text": "bar"}', encoding="utf-8")
 
     # Mock Internal Components
-    mock_get_engine = mocker.patch("yara_gen.cli.commands.generate.get_engine")
+    mock_get_engine = mocker.patch("yaramint.cli.commands.generate.get_engine")
     mock_engine_instance = MagicMock()
     mock_get_engine.return_value = mock_engine_instance
     mock_engine_instance.extract.return_value = []  # Return empty rules
 
     # Mock adapters so they don't actually try to load files
-    mocker.patch("yara_gen.cli.commands.generate.get_adapter")
+    mocker.patch("yaramint.cli.commands.generate.get_adapter")
 
     # We pass --set engine.min_ngram=10 and engine.max_rules_per_run=25 to
     # override defaults
     test_args = [
-        "yara-gen",
+        "ymint",
         "generate",
         "--config",
         str(config_file),
@@ -113,15 +113,15 @@ def test_generate_cli_args_override_config(tmp_path: Path, mocker: MagicMock) ->
     benign_file.write_text("{}")
 
     # Mock Internal Components
-    mock_get_engine = mocker.patch("yara_gen.cli.commands.generate.get_engine")
+    mock_get_engine = mocker.patch("yaramint.cli.commands.generate.get_engine")
     mock_engine_instance = MagicMock()
     mock_get_engine.return_value = mock_engine_instance
     mock_engine_instance.extract.return_value = []
 
-    mocker.patch("yara_gen.cli.commands.generate.get_adapter")
+    mocker.patch("yaramint.cli.commands.generate.get_adapter")
 
     # Mock YaraWriter to inspect the output path
-    mock_writer = mocker.patch("yara_gen.cli.commands.generate.YaraWriter")
+    mock_writer = mocker.patch("yaramint.cli.commands.generate.YaraWriter")
     mock_writer_instance = MagicMock()
     mock_writer.return_value = mock_writer_instance
 
@@ -130,7 +130,7 @@ def test_generate_cli_args_override_config(tmp_path: Path, mocker: MagicMock) ->
     custom_output = tmp_path / "from_cli.yar"
 
     test_args = [
-        "yara-gen",
+        "ymint",
         "generate",
         "--config",
         str(config_file),
@@ -184,23 +184,23 @@ def test_generate_adapter_overrides(tmp_path: Path, mocker: MagicMock) -> None:
     benign_file.write_text("content")
 
     # Mock Internal Components
-    mock_get_engine = mocker.patch("yara_gen.cli.commands.generate.get_engine")
+    mock_get_engine = mocker.patch("yaramint.cli.commands.generate.get_engine")
     mock_engine_instance = MagicMock()
     mock_get_engine.return_value = mock_engine_instance
     mock_engine_instance.extract.return_value = []
 
-    mock_get_adapter = mocker.patch("yara_gen.cli.commands.generate.get_adapter")
+    mock_get_adapter = mocker.patch("yaramint.cli.commands.generate.get_adapter")
     mock_adapter_instance = MagicMock()
     mock_get_adapter.return_value = mock_adapter_instance
     # Allow .load() to be called and return an iterator
     mock_adapter_instance.load.return_value = iter([])
 
     # Mock Writer
-    mocker.patch("yara_gen.cli.commands.generate.YaraWriter")
+    mocker.patch("yaramint.cli.commands.generate.YaraWriter")
 
     # Simulate CLI Execution with Adapter Overrides
     test_args = [
-        "yara-gen",
+        "ymint",
         "generate",
         "--config",
         str(config_file),
@@ -215,7 +215,7 @@ def test_generate_adapter_overrides(tmp_path: Path, mocker: MagicMock) -> None:
 
     mocker.patch.object(sys, "argv", test_args)
 
-    from yara_gen.models.text import DatasetType
+    from yaramint.models.text import DatasetType
 
     main()
 

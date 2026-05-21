@@ -2,8 +2,8 @@ import sys
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from yara_gen.main import main
-from yara_gen.models.text import GeneratedRule, RuleString
+from yaramint.main import main
+from yaramint.models.text import GeneratedRule, RuleString
 
 
 def test_generate_command_deduplication(tmp_path: Path, mocker: MagicMock) -> None:
@@ -58,7 +58,7 @@ def test_generate_command_deduplication(tmp_path: Path, mocker: MagicMock) -> No
     # We mock 'get_engine' so we don't need to rely on the actual N-Gram engine
     # finding patterns in our dummy data. We just want to test the filtering logic
     # in main.
-    mock_get_engine = mocker.patch("yara_gen.cli.commands.generate.get_engine")
+    mock_get_engine = mocker.patch("yaramint.cli.commands.generate.get_engine")
     mock_engine_instance = MagicMock()
     mock_get_engine.return_value = mock_engine_instance
 
@@ -87,7 +87,7 @@ def test_generate_command_deduplication(tmp_path: Path, mocker: MagicMock) -> No
 
     # Mock CLI Arguments
     test_args = [
-        "yara-gen",
+        "ymint",
         "generate",
         str(adv_file),
         "--benign-dataset",

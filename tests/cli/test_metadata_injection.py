@@ -1,18 +1,18 @@
 import argparse
 from unittest.mock import MagicMock
 
-from yara_gen.cli.commands.generate import run
-from yara_gen.models.config import AppConfig
-from yara_gen.models.text import GeneratedRule, RuleString
+from yaramint.cli.commands.generate import run
+from yaramint.models.config import AppConfig
+from yaramint.models.text import GeneratedRule, RuleString
 
 
 def test_metadata_injection(mocker):
     mock_load_config = mocker.patch(
-        "yara_gen.cli.commands.generate._load_app_configuration"
+        "yaramint.cli.commands.generate._load_app_configuration"
     )
-    mock_init = mocker.patch("yara_gen.cli.commands.generate._initialize_components")
-    mock_load_data = mocker.patch("yara_gen.cli.commands.generate._load_pipeline_data")
-    mock_write = mocker.patch("yara_gen.cli.commands.generate._write_results")
+    mock_init = mocker.patch("yaramint.cli.commands.generate._initialize_components")
+    mock_load_data = mocker.patch("yaramint.cli.commands.generate._load_pipeline_data")
+    mock_write = mocker.patch("yaramint.cli.commands.generate._write_results")
 
     # Setup Config
     config = AppConfig(
