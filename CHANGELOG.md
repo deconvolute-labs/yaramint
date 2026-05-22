@@ -1,8 +1,16 @@
+## [0.1.7] - 2026-05-22
+
+### 📚 Documentation
+
+- Update Readme
+- Update User Guide
+- Update Readme
 ## [0.1.6] - 2026-05-21
 
 ### ⚙️ Miscellaneous Tasks
 
 - Rename project from yara-gen to yaramint
+- Prepare v0.1.6
 ## [0.1.5] - 2026-01-29
 
 ### ⚙️ Miscellaneous Tasks
