@@ -4,7 +4,6 @@
 [![License](https://img.shields.io/pypi/l/yaramint.svg)](https://pypi.org/project/yaramint/)
 [![PyPI version](https://img.shields.io/pypi/v/yaramint.svg?color=green)](https://pypi.org/project/yaramint/)
 [![Python](https://img.shields.io/badge/python-3.13-blue.svg)](https://pypi.org/project/yaramint/)
-[![PyPI downloads](https://img.shields.io/pypi/dm/yaramint.svg)](https://pypi.org/project/yaramint/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 ## YARA rules from examples, not hand-crafting
